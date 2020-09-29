@@ -17,6 +17,8 @@ No input.
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| vpc\_id | n/a |
 
 <!--- END_TF_DOCS --->
