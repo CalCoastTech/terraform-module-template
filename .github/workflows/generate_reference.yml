@@ -1,0 +1,23 @@
+name: Generate Reference
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Render Reference with terraform-docs
+      uses: Dirrk/terraform-docs@v1.0.8
+      with:
+        tf_docs_working_dir: .
+        tf_docs_output_file: README.md
+        tf_docs_output_method: inject
+        tf_docs_git_push: 'true'

@@ -1,0 +1,52 @@
+name: Test Terraform
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - master
+      - main
+    tags:
+      - "test_*"
+      - "*_test_*"
+      - "*_test"
+
+jobs:
+  format:
+    name: "Terraform Format"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Terraform Setup
+        uses: hashicorp/setup-terraform@v1.2.0
+
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -recursive
+
+  validate:
+    name: "Terraform Validate"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        terraform_version:
+          - 0.12.x
+          - 0.13.x
+          - latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Terraform Setup
+        uses: hashicorp/setup-terraform@v1.2.0
+        with:
+          terraform_version: ${{ matrix.terraform_version }}
+
+      # Terraform Init required before Terraform Validate
+      - name: Terraform Init
+        id: init
+        run: terraform init -backend=false -lock=false
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color}
