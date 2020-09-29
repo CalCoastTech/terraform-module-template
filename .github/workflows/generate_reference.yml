@@ -1,7 +1,6 @@
 name: Generate Reference
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
   push:
     branches:
       - master
