@@ -32,6 +32,7 @@ jobs:
     strategy:
       matrix:
         terraform_version:
+          - 0.11.x
           - 0.12.x
           - 0.13.x
           - latest
