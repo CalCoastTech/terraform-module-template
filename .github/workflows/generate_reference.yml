@@ -1,6 +1,7 @@
 name: Generate Reference
 on:
   pull_request:
+    types: [opened, synchronize, reopened]
   push:
     branches:
       - master
@@ -15,13 +16,13 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Terraform Setup
-        uses: hashicorp/setup-terraform@v1.2.0
+    - name: Terraform Setup
+      uses: hashicorp/setup-terraform@v1.2.0
 
-      # Terraform Init required before terraform-docs
-      - name: Terraform Init
-        id: init
-        run: terraform init -backend=false -lock=false
+    # Terraform Init required before terraform-docs
+    - name: Terraform Init
+      id: init
+      run: terraform init -backend=false -lock=false
 
     - name: Render Reference with terraform-docs
       uses: Dirrk/terraform-docs@v1.0.8
