@@ -10,7 +10,8 @@ on:
       - "test_*"
       - "*_test_*"
       - "*_test"
-
+env:
+  AWS_DEFAULT_REGION: us-east-1
 jobs:
   format:
     name: "Terraform Format"
