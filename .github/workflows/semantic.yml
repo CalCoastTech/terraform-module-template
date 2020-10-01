@@ -1,0 +1,13 @@
+# Validate with PR title, or any commits
+titleAndCommits: true
+titleOnly: false
+commitsOnly: false
+
+# Allowed types for validation
+types:
+  - docs
+  - fix
+  - enhancement
+  - refactor
+  - test
+  
